@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalendarKat — All Your Calendars, One Place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0e0b12;
+      --surface: #16121e;
+      --border: rgba(255,255,255,0.07);
+      --pink: #e8187a;
+      --pink-soft: rgba(232, 24, 122, 0.12);
+      --yellow: #f5c842;
+      --text: #f0ecf7;
+      --muted: #7a7285;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 50% 0%, rgba(232, 24, 122, 0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 80% 90%, rgba(245, 200, 66, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 10% 80%, rgba(232, 24, 122, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .logo-img {
+      width: clamp(160px, 25vw, 240px);
+      height: clamp(160px, 25vw, 240px);
+      object-fit: contain;
+      margin-bottom: 2rem;
+      opacity: 0;
+      filter: drop-shadow(0 0 50px rgba(232, 24, 122, 0.3)) drop-shadow(0 20px 50px rgba(0,0,0,0.6));
+      animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards, floatAnim 7s ease-in-out 1s infinite;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes floatAnim {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .wordmark {
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+      margin-bottom: 0.6rem;
+      line-height: 1;
+    }
+    .wordmark-calendar {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .wordmark-kat {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--pink);
+      letter-spacing: -0.02em;
+    }
+    .tagline {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.55s forwards;
+    }
+    .rule {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--pink), transparent);
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.65s forwards;
+    }
+    .description {
+      max-width: 560px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.75s forwards;
+    }
+    .description p {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.85;
+      color: #9e97ab;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+    .description p:last-child { margin-bottom: 0; }
+    .description strong { color: var(--text); font-weight: 500; }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+      margin-top: 3rem;
+      max-width: 580px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.9s forwards;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+      cursor: default;
+    }
+    .pill:hover {
+      border-color: rgba(232, 24, 122, 0.35);
+      color: var(--text);
+      background: rgba(232, 24, 122, 0.05);
+    }
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--pink);
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+    .pill-dot.yellow { background: var(--yellow); }
+    .badge {
+      margin-top: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 1.05s forwards;
+    }
+    .badge span {
+      display: inline-block;
+      background: var(--pink-soft);
+      border: 1px solid rgba(232, 24, 122, 0.25);
+      border-radius: 100px;
+      padding: 0.45rem 1.3rem;
+      font-size: 0.75rem;
+      color: var(--pink);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 2rem;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 1.2s forwards;
+    }
+    footer p { font-size: 0.72rem; color: #4a4455; letter-spacing: 0.04em; }
+    footer em { color: var(--pink); font-style: normal; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <main>
+      <img class="logo-img" src="calendarkat-logo.png" alt="CalendarKat" />
+      <div class="wordmark">
+        <span class="wordmark-calendar">Calendar</span><span class="wordmark-kat">Kat</span>
+      </div>
+      <p class="tagline">All your calendars &nbsp;·&nbsp; one place &nbsp;·&nbsp; finally</p>
+      <div class="rule"></div>
+      <div class="description">
+        <p>
+          Running a business across <strong>multiple companies, clients, and Google accounts</strong> means living in calendar chaos — six accounts, constant context switching, and no single view of what's actually on your plate.
+        </p>
+        <p>
+          CalendarKat is being built to fix that. A unified calendar that pulls everything together, catches conflicts before they bite you, and lets you manage your time like it actually belongs to you.
+        </p>
+      </div>
+      <div class="features">
+        <div class="pill"><span class="pill-dot"></span>Multi-account unified view</div>
+        <div class="pill"><span class="pill-dot yellow"></span>Conflict detection</div>
+        <div class="pill"><span class="pill-dot"></span>Drag-and-drop editing</div>
+        <div class="pill"><span class="pill-dot yellow"></span>Built for Google Calendar</div>
+        <div class="pill"><span class="pill-dot"></span>Zero context switching</div>
+      </div>
+      <div class="badge"><span>Coming Soon</span></div>
+    </main>
+    <footer>
+      <p>Built with <em>♥</em> &nbsp;·&nbsp; CalendarKat &copy; 2025 &nbsp;·&nbsp; calendarkat.com</p>
+    </footer>
+  </div>
+</body>
+</html>
