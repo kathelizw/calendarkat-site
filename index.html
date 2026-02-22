@@ -36,22 +36,8 @@
       pointer-events: none;
       z-index: 0;
     }
-    .wrapper {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-    }
+    .wrapper { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 2rem 4rem; text-align: center; }
     .logo-img {
       width: clamp(220px, 35vw, 360px);
       height: clamp(220px, 35vw, 360px);
@@ -61,132 +47,26 @@
       filter: drop-shadow(0 0 50px rgba(232, 24, 122, 0.3)) drop-shadow(0 20px 50px rgba(0,0,0,0.6));
       animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards, floatAnim 7s ease-in-out 1s infinite;
     }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.8) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    @keyframes floatAnim {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .wordmark {
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.4s forwards;
-      margin-bottom: 0.6rem;
-      line-height: 1;
-    }
-    .wordmark-calendar {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.02em;
-    }
-    .wordmark-kat {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--pink);
-      letter-spacing: -0.02em;
-    }
-    .tagline {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      margin-bottom: 3rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.55s forwards;
-    }
-    .rule {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--pink), transparent);
-      margin: 0 auto 3rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.65s forwards;
-    }
-    .description {
-      max-width: 560px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.75s forwards;
-    }
-    .description p {
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      line-height: 1.85;
-      color: #9e97ab;
-      font-weight: 300;
-      margin-bottom: 1.25rem;
-    }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    @keyframes floatAnim { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .wordmark { opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards; margin-bottom: 0.6rem; line-height: 1; }
+    .wordmark-calendar { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+    .wordmark-kat { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-style: italic; font-weight: 400; color: var(--pink); letter-spacing: -0.02em; }
+    .tagline { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 3rem; opacity: 0; animation: fadeUp 0.7s ease 0.55s forwards; }
+    .rule { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--pink), transparent); margin: 0 auto 3rem; opacity: 0; animation: fadeUp 0.7s ease 0.65s forwards; }
+    .description { max-width: 560px; opacity: 0; animation: fadeUp 0.7s ease 0.75s forwards; }
+    .description p { font-size: clamp(1rem, 2vw, 1.1rem); line-height: 1.85; color: #9e97ab; font-weight: 300; margin-bottom: 1.25rem; }
     .description p:last-child { margin-bottom: 0; }
     .description strong { color: var(--text); font-weight: 500; }
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      justify-content: center;
-      margin-top: 3rem;
-      max-width: 580px;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 0.9s forwards;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 0.4rem 1rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-      transition: border-color 0.25s, color 0.25s, background 0.25s;
-      cursor: default;
-    }
-    .pill:hover {
-      border-color: rgba(232, 24, 122, 0.35);
-      color: var(--text);
-      background: rgba(232, 24, 122, 0.05);
-    }
-    .pill-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--pink);
-      opacity: 0.75;
-      flex-shrink: 0;
-    }
+    .features { display: flex; flex-wrap: wrap; gap: 0.55rem; justify-content: center; margin-top: 3rem; max-width: 580px; opacity: 0; animation: fadeUp 0.7s ease 0.9s forwards; }
+    .pill { display: inline-flex; align-items: center; gap: 0.45rem; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 0.4rem 1rem; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em; transition: border-color 0.25s, color 0.25s, background 0.25s; cursor: default; }
+    .pill:hover { border-color: rgba(232, 24, 122, 0.35); color: var(--text); background: rgba(232, 24, 122, 0.05); }
+    .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--pink); opacity: 0.75; flex-shrink: 0; }
     .pill-dot.yellow { background: var(--yellow); }
-    .badge {
-      margin-top: 3.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 1.05s forwards;
-    }
-    .badge span {
-      display: inline-block;
-      background: var(--pink-soft);
-      border: 1px solid rgba(232, 24, 122, 0.25);
-      border-radius: 100px;
-      padding: 0.45rem 1.3rem;
-      font-size: 0.75rem;
-      color: var(--pink);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 1.4rem 2rem;
-      display: flex;
-      justify-content: center;
-      opacity: 0;
-      animation: fadeUp 0.7s ease 1.2s forwards;
-    }
+    .badge { margin-top: 3.5rem; opacity: 0; animation: fadeUp 0.7s ease 1.05s forwards; }
+    .badge span { display: inline-block; background: var(--pink-soft); border: 1px solid rgba(232, 24, 122, 0.25); border-radius: 100px; padding: 0.45rem 1.3rem; font-size: 0.75rem; color: var(--pink); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+    footer { border-top: 1px solid var(--border); padding: 1.4rem 2rem; display: flex; justify-content: center; opacity: 0; animation: fadeUp 0.7s ease 1.2s forwards; }
     footer p { font-size: 0.72rem; color: #4a4455; letter-spacing: 0.04em; }
     footer em { color: var(--pink); font-style: normal; }
   </style>
