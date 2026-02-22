@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CalendarKat — All Your Calendars, One Place</title>
+  <title>CalendarKat: All Your Calendars, One Place</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
@@ -38,18 +38,40 @@
     }
     .wrapper { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
     main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 2rem 4rem; text-align: center; }
+
+    /* Logo wrapper for glow effect */
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards, floatAnim 7s ease-in-out 1s infinite;
+    }
+    .logo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(ellipse, rgba(232, 24, 122, 0.45) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(28px);
+      z-index: 0;
+      pointer-events: none;
+    }
     .logo-img {
+      position: relative;
+      z-index: 1;
       width: clamp(220px, 35vw, 360px);
       height: clamp(220px, 35vw, 360px);
       object-fit: contain;
-      margin-bottom: 2rem;
-      opacity: 0;
-      filter: drop-shadow(0 0 50px rgba(232, 24, 122, 0.3)) drop-shadow(0 20px 50px rgba(0,0,0,0.6));
-      animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards, floatAnim 7s ease-in-out 1s infinite;
     }
+
     @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
     @keyframes floatAnim { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
     .wordmark { opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards; margin-bottom: 0.6rem; line-height: 1; }
     .wordmark-calendar { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
     .wordmark-kat { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5rem); font-style: italic; font-weight: 400; color: var(--pink); letter-spacing: -0.02em; }
@@ -74,7 +96,9 @@
 <body>
   <div class="wrapper">
     <main>
-      <img class="logo-img" src="calendarkat-logo.png" alt="CalendarKat" />
+      <div class="logo-wrap">
+        <img class="logo-img" src="calendarkat-logo.png" alt="CalendarKat" />
+      </div>
       <div class="wordmark">
         <span class="wordmark-calendar">Calendar</span><span class="wordmark-kat">Kat</span>
       </div>
@@ -82,10 +106,10 @@
       <div class="rule"></div>
       <div class="description">
         <p>
-          Running a business across <strong>multiple companies, clients, and Google accounts</strong> means living in calendar chaos — constant context switching, no single view of what's on your plate, and availability that's impossible to share cleanly.
+          Multiple Google accounts. Back-to-back bookings. A schedule that spans clients, companies, and calendars that don't talk to each other. If your time is this complicated, you already know: no tool out there was built for it.
         </p>
         <p>
-          CalendarKat is being built to fix that. A unified calendar that pulls everything together — clean, distinctive availability windows and booking blocks across all your accounts, conflict detection before it bites you, and no more juggling multiple tools. Manage your time like it actually belongs to you.
+          CalendarKat is being built to fix that. A unified calendar that pulls everything together: clean, distinctive availability windows and booking blocks across all your accounts, conflict detection before it bites you, and no more juggling multiple tools. Manage your time like it actually belongs to you.
         </p>
       </div>
       <div class="features">
@@ -94,7 +118,6 @@
         <div class="pill"><span class="pill-dot"></span>Reduced context switching</div>
         <div class="pill"><span class="pill-dot yellow"></span>Clean availability windows</div>
         <div class="pill"><span class="pill-dot"></span>Cross-calendar booking blocks</div>
-        <div class="pill"><span class="pill-dot yellow"></span>One tool, not five</div>
       </div>
       <div class="badge"><span>Coming Soon</span></div>
     </main>
